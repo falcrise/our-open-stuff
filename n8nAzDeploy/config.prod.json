@@ -1,0 +1,64 @@
+{
+  "_comment": "n8n Production Environment Configuration",
+  "_schema_version": "1.0.0",
+  "_documentation": {
+    "subscriptionId": "Azure subscription GUID",
+    "location": "Azure region for all resources",
+    "resourceGroupName": "Name of the Azure Resource Group",
+    "containerAppsEnvName": "Name of the Container Apps Environment",
+    "containerAppName": "Name of the Container App running n8n",
+    "postgresServerName": "Globally unique PostgreSQL server name",
+    "postgresDbName": "Name of the database for n8n",
+    "logAnalyticsWorkspaceName": "Name of the Log Analytics Workspace"
+  },
+
+  "subscriptionId": "00000000-0000-0000-0000-000000000000",
+  "location": "westeurope",
+
+  "resourceGroupName": "rg-n8n-prod",
+  "containerAppsEnvName": "cae-n8n-prod",
+  "containerAppName": "n8n-app-prod",
+  "postgresServerName": "pg-n8n-prod-unique456",
+  "postgresDbName": "n8ndb",
+  "logAnalyticsWorkspaceName": "law-n8n-prod",
+
+  "containerAppIngress": {
+    "external": true,
+    "targetPort": 5678,
+    "allowInsecure": false
+  },
+
+  "n8n": {
+    "image": "n8nio/n8n:latest",
+    "host": "n8n.mycompany.com",
+    "protocol": "https",
+    "port": 5678,
+    "basicAuthActive": true,
+    "basicAuthUser": "admin",
+    "basicAuthPassword": "lolHaha",
+    "encryptionKey": "CHANGE_ME_prod_encryption_key_must_be_at_least_32_chars_long_and_unique",
+    "logLevel": "info",
+    "personalizationEnabled": false
+  },
+
+  "postgres": {
+    "skuName": "standard_d2s_v3",
+    "tier": "GeneralPurpose",
+    "storageSizeGb": 128,
+    "version": "16",
+    "adminUser": "pgadmin",
+    "adminPassword": "lolHaha",
+    "autoGrow": true,
+    "publicAccess": {
+      "enabled": true,
+      "allowedIps": ["0.0.0.0"]
+    }
+  },
+
+  "scale": {
+    "minReplicas": 1,
+    "maxReplicas": 5,
+    "scaleRuleType": "http",
+    "concurrentRequests": 100
+  }
+}

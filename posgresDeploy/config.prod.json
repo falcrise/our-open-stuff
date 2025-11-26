@@ -1,0 +1,53 @@
+{
+  "_comment": "Standalone PostgreSQL Production Environment Configuration",
+  "_schema_version": "1.0.0",
+  "_documentation": {
+    "subscriptionId": "Azure subscription GUID",
+    "location": "Azure region for all resources",
+    "resourceGroupName": "Name of the Azure Resource Group",
+    "postgresServerName": "Globally unique PostgreSQL server name",
+    "databases": "Array of database names to create",
+    "tags": "Resource tags for organization and billing"
+  },
+
+  "subscriptionId": "fa30e859-4527-4fce-9aae-57953a33d343",
+  "location": "centralindia",
+
+  "resourceGroupName": "rg-postgres-prod",
+  "postgresServerName": "pg-standalone-prod-falcrise",
+
+  "databases": [
+    "appdb",
+    "analyticsdb"
+  ],
+
+  "tags": {
+    "environment": "prod",
+    "project": "falcrise",
+    "managedBy": "script"
+  },
+
+  "postgres": {
+    "skuName": "standard_d2s_v3",
+    "tier": "GeneralPurpose",
+    "storageSizeGb": 128,
+    "version": "16",
+    "adminUser": "pgadmin",
+    "adminPassword": "lolHaha!",
+    "backupRetentionDays": 35,
+    "highAvailability": {
+      "enabled": true,
+      "mode": "ZoneRedundant"
+    },
+    "publicAccess": {
+      "enabled": true,
+      "firewallRules": [
+        {
+          "name": "AllowAllAzure",
+          "startIp": "0.0.0.0",
+          "endIp": "0.0.0.0"
+        }
+      ]
+    }
+  }
+}

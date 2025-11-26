@@ -1,0 +1,64 @@
+{
+  "_comment": "n8n Development Environment Configuration",
+  "_schema_version": "1.0.0",
+  "_documentation": {
+    "subscriptionId": "Azure subscription GUID",
+    "location": "Azure region for all resources",
+    "resourceGroupName": "Name of the Azure Resource Group",
+    "containerAppsEnvName": "Name of the Container Apps Environment",
+    "containerAppName": "Name of the Container App running n8n",
+    "postgresServerName": "Globally unique PostgreSQL server name",
+    "postgresDbName": "Name of the database for n8n",
+    "logAnalyticsWorkspaceName": "Name of the Log Analytics Workspace"
+  },
+
+  "subscriptionId": "someId",
+  "location": "centralindia",
+
+  "resourceGroupName": "rg-n8n-dev",
+  "containerAppsEnvName": "cae-n8n-dev",
+  "containerAppName": "n8n-app-dev",
+  "postgresServerName": "pg-n8n-dev-unique123",
+  "postgresDbName": "n8ndb",
+  "logAnalyticsWorkspaceName": "law-n8n-dev",
+
+  "containerAppIngress": {
+    "external": true,
+    "targetPort": 5678,
+    "allowInsecure": false
+  },
+
+  "n8n": {
+    "image": "n8nio/n8n:latest",
+    "host": "n8n-dev.falcrise.com",
+    "protocol": "https",
+    "port": 5678,
+    "basicAuthActive": true,
+    "basicAuthUser": "admin",
+    "basicAuthPassword": "CHANGE_ME_DevPassword123!",
+    "encryptionKey": "CHANGE_ME_dev_encryption_key_must_be_at_least_32_chars_long",
+    "logLevel": "debug",
+    "personalizationEnabled": false
+  },
+
+  "postgres": {
+    "skuName": "standard_b1ms",
+    "tier": "Burstable",
+    "storageSizeGb": 32,
+    "version": "16",
+    "adminUser": "pgadmin",
+    "adminPassword": "lolhaha",
+    "autoGrow": true,
+    "publicAccess": {
+      "enabled": true,
+      "allowedIps": ["0.0.0.0"]
+    }
+  },
+
+  "scale": {
+    "minReplicas": 0,
+    "maxReplicas": 2,
+    "scaleRuleType": "http",
+    "concurrentRequests": 50
+  }
+}

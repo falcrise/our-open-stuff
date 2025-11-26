@@ -1,0 +1,52 @@
+{
+  "_comment": "Standalone PostgreSQL Development Environment Configuration",
+  "_schema_version": "1.0.0",
+  "_documentation": {
+    "subscriptionId": "Azure subscription GUID",
+    "location": "Azure region for all resources",
+    "resourceGroupName": "Name of the Azure Resource Group",
+    "postgresServerName": "Globally unique PostgreSQL server name",
+    "databases": "Array of database names to create",
+    "tags": "Resource tags for organization and billing"
+  },
+
+  "subscriptionId": "someId",
+  "location": "centralindia",
+
+  "resourceGroupName": "rg-postgres-dev",
+  "postgresServerName": "pg-standalone-dev-falcrise",
+
+  "databases": [
+    "appdb",
+    "analyticsdb"
+  ],
+
+  "tags": {
+    "environment": "dev",
+    "project": "falcrise",
+    "managedBy": "script"
+  },
+
+  "postgres": {
+    "skuName": "standard_b1ms",
+    "tier": "Burstable",
+    "storageSizeGb": 32,
+    "version": "16",
+    "adminUser": "pgadmin",
+    "adminPassword": "lolHaha",
+    "backupRetentionDays": 7,
+    "highAvailability": {
+      "enabled": false
+    },
+    "publicAccess": {
+      "enabled": true,
+      "firewallRules": [
+        {
+          "name": "AllowAllAzure",
+          "startIp": "0.0.0.0",
+          "endIp": "0.0.0.0"
+        }
+      ]
+    }
+  }
+}
