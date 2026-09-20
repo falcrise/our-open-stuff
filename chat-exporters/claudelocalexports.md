@@ -1,39 +1,37 @@
- /goal Produce a verified, encrypted, locally saved handoff of the Claude Code sessions and explicitly approved repository context on this Windows machine, with instructions another person can
-  use. Do not declare the goal achieved until the archive and checksum exist and archive verification passes.
+/goal Create a verified, encrypted, locally saved handoff containing my approved Claude Code sessions AND the local repositories/folders those sessions worked on. The recipient must be able
+  to inspect the conversations and open usable copies of the approved projects. Do not declare success until the archive and checksum exist and archive integrity has been tested.
 
-  You are running on the EXPORTING machine. This data belongs to the person using this machine, not to the eventual recipient.
+  You are on the EXPORTING machine. Do not upload any data.
 
-  First, inspect the installed Claude Code version and the actual local storage paths, including CLAUDE_CONFIG_DIR if set. Identify available session transcripts, subagent transcripts, tool
-  results, prompt history, auto memory, plans, and project-level CLAUDE.md/AGENTS.md files. Do not assume every documented path exists. Inventory project paths and counts without printing chat
-  contents or secrets.
+  First, discover the actual Claude Code configuration and session locations, including CLAUDE_CONFIG_DIR if set. Inventory sessions, project paths, subagent transcripts, tool results, and
+  project memory without printing conversation contents or secrets.
 
-  Before exporting, show the owner a concise scope list and ask them:
-  1. Which projects and sessions may be shared?
-  2. Should the handoff contain readable chat transcripts, raw session files, or both?
-  3. Which repositories, if any, may be included as source files? A repository's conversation history does not itself grant permission to share its code.
-  Do not proceed with any project or repository they have not approved.
+  Show me the discovered project paths. Ask me which repositories and non-Git folders I authorize you to share. Do not export a path merely because it appears in a chat. For each approved path,
+  ask whether to include uncommitted and untracked work, Git history, submodules, and Git LFS content. Clearly identify anything that cannot be made portable.
 
-  Create a lean Windows PowerShell export workflow. Keep outputs outside the source repositories and Claude configuration directory. Preserve approved raw session files and related subagent/
-  tool-result files without changing the originals. Produce a readable per-project index with session IDs, dates, and source paths, plus a short context handoff describing approved repository
-  locations, branches/commits, relevant instruction files, and how the recipient can use the materials. Distinguish facts extracted from files from your own summaries.
+  Build a minimal export workflow that includes:
 
-  If source repositories are approved, include only the approved repositories and agreed contents. Exclude credentials, .env files, private keys, tokens, dependency/build caches, and gitignored
-  files by default. Do not include Git history or uncommitted changes without separate explicit approval. Do not copy global Claude settings, .claude.json, .credentials.json, authentication
-  material, MCP credentials, or machine-specific permissions/hooks.
+  1. Approved raw Claude Code session files and their related subagent/tool-result files, preserving session IDs and directory relationships.
+  2. A readable index mapping each session’s original working directory to its exported repository/folder.
+  3. A portable copy of each approved repository’s working files, including explicitly approved uncommitted and untracked work. If Git history is approved, include a portable Git bundle rather
+  than blindly copying `.git`; record the branch, commit, remote names, and any missing submodule or LFS content.
+  4. Portable copies of approved non-Git folders.
+  5. Relevant CLAUDE.md, AGENTS.md, project instructions, and auto-memory files needed to understand the work.
+  6. A recipient README explaining how to restore the folders, map old paths to new paths, inspect sessions, and distinguish an archival transcript from a session that Claude Code can actually
+  resume.
 
-  Treat transcripts as sensitive even after excluding credential files: tool output may contain secrets. Scan the staged files for likely credentials without printing their values. Report
-  affected file paths and stop for the owner's decision if anything sensitive is found; do not silently redact or ship it. Never upload data or invoke a cloud transfer service.
+  Default exclusions: credentials, tokens, private keys, `.env` files, personal Claude authentication/settings, dependency caches, build output, and machine-specific hooks or permissions. Do
+  not silently exclude an important project file: list every exclusion affecting an approved project. Gitignored files require my explicit approval before inclusion. Scan staged data—including
+  transcripts, source files, Git history if included, and command output—for likely secrets without printing their values. Stop and ask me to review flagged paths before packaging. Do not
+  silently redact files or assume that encryption makes sharing secrets acceptable.
 
-  After the owner approves the staged contents, package them in an encrypted archive using a locally available tool, with a password the owner enters privately. Do not put the password in a
-  script, log, chat, or command-line argument. If you cannot achieve that securely with the installed tools, explain the limitation and ask the owner to perform the encryption in a local GUI.
-  Create a SHA-256 checksum alongside the archive. Verify both archive integrity and the checksum. Remove temporary plaintext copies only after verification and only with the owner's approval.
+  Keep staging and output outside the source projects and Claude configuration directory. Do not alter originals. Because this Claude Code session may still be writing a transcript, prepare the
+  final copy command for me to run in normal PowerShell after closing Claude Code, Claude Desktop, and relevant IDE sessions; do not perform the live-data copy from this active session.
 
-  Because this Claude Code session may be writing to its own transcript, do not run the final live-data copy while Claude Code is open. Prepare the exact PowerShell command for the owner to run
-  after closing Claude Code, Claude Desktop, and relevant IDE sessions. The script must produce a clear success/failure result.
+  After I approve the staged file list, create an encrypted archive using a locally available tool. I will enter the password privately; never put it in chat, source code, logs, or a command-
+  line argument. If the installed tools cannot meet that condition, give me local GUI encryption steps instead. Create a SHA-256 checksum and test archive integrity.
 
-  Include a README for the recipient explaining what was exported, what was excluded, how to verify and decrypt it, and how to read the sessions and context. Do not promise that copying raw
-  session files will automatically make them resumable in another Claude Code installation unless you have tested that exact import seam on a separate installation. State any untested import
-  behavior explicitly.
+  Verify that the archive contains every approved project/folder, the selected session files, the mapping manifest, and the recipient README. Report counts and sizes, not chat or secret
+  contents. Do not claim that raw sessions will automatically appear in another Claude Code installation unless that exact import behavior has been tested there.
 
-  At the end, provide only the exact archive and checksum paths, the approved project/session counts, verification output, exclusions, and any limitations. The owner will share the password
-  separately.
+  Finish by giving me the exact archive and checksum paths, what was included/excluded, verification output, and any limitations. I will transfer the password separately.
